@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:primary_project/components/login/custom_login_buttom_component.dart';
 import 'package:primary_project/controllers/login_controller.dart';
+import 'package:primary_project/widgets/custom_text_field_widget.dart';
 
 class LoginPage extends StatelessWidget {
   LoginController _controller = LoginController();
@@ -18,44 +20,17 @@ class LoginPage extends StatelessWidget {
             Image.network(
                 height: 100, 'https://img.icons8.com/color/452/flutter.png'),
             const SizedBox(height: 20),
-            TextFormField(
-              decoration: const InputDecoration(
-                label: Text('Email'),
-                border: OutlineInputBorder(),
-              ),
-              onChanged: _controller.setEmail,
-            ),
+            CustomTextFielWidget(
+                label: 'Email', onChanged: _controller.setEmail),
             const SizedBox(height: 15),
-            TextFormField(
-              decoration: const InputDecoration(
-                label: Text('Senha'),
-                border: OutlineInputBorder(),
-              ),
-              obscureText: true,
+            CustomTextFielWidget(
+              label: 'Senha',
               onChanged: _controller.setPass,
+              obscureText: true,
             ),
             SizedBox(height: 15),
-            ValueListenableBuilder<bool>(
-              valueListenable: _controller.inLoader,
-              builder: (_, inLoader, __) => inLoader
-                  ? CircularProgressIndicator()
-                  : ElevatedButton(
-                      onPressed: () {
-                        _controller.auth().then((result) {
-                          if (result) {
-                            Navigator.of(context).pushReplacementNamed('/home');
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('Credencias Inválida'),
-                                duration: Duration(seconds: 5),
-                              ),
-                            );
-                          }
-                        });
-                      },
-                      child: Text('Entrar'),
-                    ),
+            CustomLoginButtomComponent(
+              loginController: _controller,
             ),
           ],
         ),
