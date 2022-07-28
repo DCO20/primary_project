@@ -15,16 +15,21 @@ class LoginPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.class_outlined, size: 89),
-            TextField(
-              decoration: InputDecoration(
+            Image.network(
+                height: 100, 'https://img.icons8.com/color/452/flutter.png'),
+            const SizedBox(height: 20),
+            TextFormField(
+              decoration: const InputDecoration(
                 label: Text('Email'),
+                border: OutlineInputBorder(),
               ),
               onChanged: _controller.setEmail,
             ),
-            TextField(
-              decoration: InputDecoration(
+            const SizedBox(height: 15),
+            TextFormField(
+              decoration: const InputDecoration(
                 label: Text('Senha'),
+                border: OutlineInputBorder(),
               ),
               obscureText: true,
               onChanged: _controller.setPass,
@@ -49,7 +54,7 @@ class LoginPage extends StatelessWidget {
                           }
                         });
                       },
-                      child: Text('Login'),
+                      child: Text('Entrar'),
                     ),
             ),
           ],
