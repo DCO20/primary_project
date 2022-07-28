@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:primary_project/controllers/home_controller.dart';
+import 'package:primary_project/model/post_model.dart';
 import 'package:primary_project/repositories/home_repository_imp.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,6 +23,28 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Home'),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              ValueListenableBuilder<List<PostModel>>(
+                  valueListenable: _controller.posts,
+                  builder: (_, list, __) {
+                    return ListView.separated(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: list.length,
+                      itemBuilder: (_, idx) => ListTile(
+                        title: Text(list[idx].title),
+                      ),
+                      separatorBuilder: (_, __) => Divider(),
+                    );
+                  }),
+            ],
+          ),
+        ));
   }
 }
